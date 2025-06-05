@@ -1,0 +1,43 @@
+GSMetadata {
+	#version : 1,
+	#mappers : [
+		GSTonelMapper {
+			#version : 1,
+			#package : MCPackage {
+				#name : 'ScorchingVMTests'
+			},
+			#path : FSAbsolutePath [
+				'repository'
+			]
+		},
+		GSTonelMapper {
+			#version : 1,
+			#package : MCPackage {
+				#name : 'ScorchingTests'
+			},
+			#path : @5
+		},
+		GSTonelMapper {
+			#version : 1,
+			#package : MCPackage {
+				#name : 'Scorching'
+			},
+			#path : @5
+		},
+		GSTonelMapper {
+			#version : 1,
+			#package : MCPackage {
+				#name : 'ScorchingDev'
+			},
+			#path : @5
+		},
+		GSTonelMapper {
+			#version : 1,
+			#package : MCPackage {
+				#name : 'BaselineOfScorch'
+			},
+			#path : @5
+		}
+	],
+	#name : 'Scorch'
+}

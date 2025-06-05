@@ -1,1 +1,4 @@
-Package { #name : #BaselineOfScorch }
+Package {
+	#'squeak_changestamp' : true,
+	#name : #BaselineOfScorch
+}

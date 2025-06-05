@@ -1,1 +1,4 @@
-Package { #name : #Scorching }
+Package {
+	#'squeak_changestamp' : true,
+	#name : #Scorching
+}
