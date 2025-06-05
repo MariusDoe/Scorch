@@ -9,7 +9,7 @@ Class {
 
 { #category : #type }
 SoContextInstVar >> basicTypeInformation [
-	type == SoUnknownType default ifFalse: [ :it | ^ it ].
+	type == SoUnknownType default ifFalse: [ ^ type ].
 	index = 0 ifTrue: [ ^ type := SoSingleHintType for: Context ].				"sender"
 	index = 1 ifTrue: [ ^ type := SoSingleHintType for: SmallInteger ].			"pc"
 	index = 2 ifTrue: [ ^ type := SoSingleHintType for: SmallInteger ].			"stackp"
