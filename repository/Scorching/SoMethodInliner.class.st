@@ -66,7 +66,10 @@ SoMethodInliner >> depthAllowinlining: methodToInline [
 	
 ]
 
-{ #category : #heuristic }
+{
+	#category : #heuristic,
+	#'squeak_changestamp' : 'mad 6/9/2025 23:29'
+}
 SoMethodInliner >> isPossibletoInline: methodToInline [
 	"Is the method marked as cant be inlined"
 	methodToInline allowRuntimeOptimizations ifFalse: [ 
@@ -74,9 +77,8 @@ SoMethodInliner >> isPossibletoInline: methodToInline [
 		^ false ].
 	"Can't inline primitives in the default inliner. Should use other passes."
 	methodToInline primitive > 0 ifTrue: [ 
-		methodToInline isQuick ifFalse: [ 
-			debugString := 'primitive'.
-			^ false ] ].
+		debugString := 'primitive'.
+		^ false ].
 	^ true
 ]
 
