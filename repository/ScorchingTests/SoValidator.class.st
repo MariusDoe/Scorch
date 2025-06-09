@@ -318,7 +318,10 @@ SoValidator >> isAlive: instr [
 	^ instr codeNode basicBlocks includes: instr basicBlock
 ]
 
-{ #category : #'graph sanity' }
+{
+	#category : #'graph sanity',
+	#'squeak_changestamp' : 'mad 6/5/2025 16:50'
+}
 SoValidator >> isInstructionAlive: instr [
 	instr isPhiInput ifTrue: [ ^ self isInstructionAlive: instr phi ].
 	instr basicBlock instructionsDo: [ :i |
@@ -326,7 +329,7 @@ SoValidator >> isInstructionAlive: instr [
 	instr isSunkObject ifTrue: [ 
 		instr basicBlock instructionsDo: [ :i |
 			i hasDeoptInfo ifTrue: [ 
-				i deoptInfo sunkObjects detect: [ :s | s == instr ] ifFound: [ ^ true ] ] ] ].
+				i deoptInfo sunkObjects detect: [ :s | s == instr ] ifFound: [ :s | ^ true ] ] ] ].
 	^ false
 ]
 

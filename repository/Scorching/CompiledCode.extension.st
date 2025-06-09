@@ -39,6 +39,14 @@ CompiledCode >> hasNoCounterBit [
 	^ (self header bitAt: 16) = 1
 ]
 
+{
+	#category : #'*Scorching-Pharo-Compatibility',
+	#'squeak_changestamp' : 'mad 6/5/2025 14:04'
+}
+CompiledCode >> isDoIt [
+	^ false
+]
+
 { #category : #'*Scorching' }
 CompiledCode >> isGloballyOptimized [
 	^ self isOptimized or: [ 

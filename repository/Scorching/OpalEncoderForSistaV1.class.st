@@ -1,4 +1,18 @@
-Extension { #name : #OpalEncoderForSistaV1 }
+Class {
+	#name : #OpalEncoderForSistaV1,
+	#superclass : #EncoderForSistaV1,
+	#category : #'Scorching-Backend-Bytecode'
+}
+
+{ #category : #'*Scorching' }
+OpalEncoderForSistaV1 class >> isReturnByte: byte [
+	^ byte between: 88 and: 94
+]
+
+{ #category : #'*Scorching' }
+OpalEncoderForSistaV1 class >> returnSelfByte [
+	^ 88
+]
 
 { #category : #'*Scorching' }
 OpalEncoderForSistaV1 >> genBranchIfInstanceOf: literalIndex distance: distance [
@@ -76,14 +90,4 @@ OpalEncoderForSistaV1 >> genStoreFlagExtensionIgnoreStoreCheck: ignoreStoreCheck
 	no read-only check will be performed by the VM. Normally each store has a read-only check.
 	"
 	self genUnsignedSingleExtendB: ignoreStoreCheck asBit + (maybeContext asBit << 1) + (ignoreReadOnlyCheck asBit << 2)
-]
-
-{ #category : #'*Scorching' }
-OpalEncoderForSistaV1 class >> isReturnByte: byte [
-	^ byte between: 88 and: 94
-]
-
-{ #category : #'*Scorching' }
-OpalEncoderForSistaV1 class >> returnSelfByte [
-	^ 88
 ]
