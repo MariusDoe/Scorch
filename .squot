@@ -1,0 +1,7 @@
+OrderedDictionary {
+	'repository/ScorchingTests' : #SquotTonelSerializer,
+	'repository/Scorching' : #SquotTonelSerializer,
+	'repository/ScorchingVMTests' : #SquotTonelSerializer,
+	'repository/ScorchingDev' : #SquotTonelSerializer,
+	'repository/BaselineOfScorch' : #SquotTonelSerializer
+}
