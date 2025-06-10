@@ -1,6 +1,9 @@
 Extension { #name : #SoAbsSmiBitShiftOp }
 
-{ #category : #'*ScorchingDev' }
+{
+	#category : #'*ScorchingDev',
+	#'squeak_changestamp' : 'ct 6/10/2025 16:37'
+}
 SoAbsSmiBitShiftOp class >> script [
 	
 	| ranges |
@@ -8,7 +11,7 @@ SoAbsSmiBitShiftOp class >> script [
 	ranges do: [ :r1 |
 	ranges do: [ :r2 |
 		| a b c d |
-		(r1 printString , ' bitShift: ' , r2 printString) logCr.
+		Transcript showln: r1 printString , ' bitShift: ' , r2 printString.
 		a := r1 first tryPrimitive: 17 withArgs:  {r2 first}.
 		b := r1 last tryPrimitive: 17 withArgs:  {r2 first}.
 		c := r1 first tryPrimitive: 17 withArgs:  {r2 last}.

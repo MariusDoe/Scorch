@@ -116,10 +116,11 @@ SoBytecodeBuilder >> collectJumps [
 
 {
 	#category : #results,
-	#'squeak_changestamp' : 'mad 6/10/2025 19:10'
+	#'squeak_changestamp' : 'ct 6/10/2025 19:51'
 }
 SoBytecodeBuilder >> compiledCode: codeNode codeClass: codeClass [
 	| cm bytes |
+	self flag: #todo. "fix assertion for proxies"
 	"self assert: codeClass == CompiledMethod." "Else installation not supported yet"
 	basicBlocks := codeNode basicBlocks.
 	bytes := self genBytecodes.

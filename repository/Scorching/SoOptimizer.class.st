@@ -21,11 +21,26 @@ Class {
 
 {
 	#category : #private,
-	#'squeak_changestamp' : 'mad 6/10/2025 19:00'
+	#'squeak_changestamp' : 'ct 6/10/2025 19:51'
 }
 SoOptimizer >> basicOptimizedContext: context [
 	"('Attempt to optimize: ' , context method printString , ' with rcvrClass: ' , context receiver class name) logCr."
 	^ self uncheckedOptimize: context
+	"origin := DateAndTime now.
+	[ [ self uncheckedOptimize: context ]
+		valueWithin: TimeBeforePostponing
+		onTimeout: [ 
+				context method markOptimizedBit.
+				^ self postponeOptimization ] ]
+			on: Error, Warning 
+			do: [ :ex | 
+					ex class = MessageNotUnderstood ifTrue: [ ex pass ].
+					""ex class = SoStackSearchError ifTrue: [ (context stackOfSize: 15) logCr ].""
+					Transcript show: ('Failure for ' , context method printString , '. ' , ex class name , ': ' , ex messageText , ' | in ' , ex signalerContext method printString); cr.
+					FileStream stdout << ('Failure for ' , context method printString , '. ' , ex class name , ': ' , ex messageText , ' | in ' , ex signalerContext method printString).
+					FileStream stdout cr.
+					""Cant be optimized, usually SoStackSearchError""
+					^ context method markOptimizedBit. ]."
 ]
 
 { #category : #accessing }
