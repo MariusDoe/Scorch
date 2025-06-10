@@ -89,10 +89,13 @@ SoOptimizer >> passes [
 	^ ActiveO
 ]
 
-{ #category : #private }
+{
+	#category : #private,
+	#'squeak_changestamp' : 'ct 6/10/2025 16:38'
+}
 SoOptimizer >> postponeOptimization [
 	self flag: #TODO.
-	'TimeOut' logCr.
+	Transcript showln: 'TimeOut'.
 ]
 
 { #category : #private }

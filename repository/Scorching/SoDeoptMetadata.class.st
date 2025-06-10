@@ -79,7 +79,10 @@ SoDeoptMetadata >> debugInfo: aValue [
 	debugInfo := aValue
 ]
 
-{ #category : #accessing }
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'ct 6/10/2025 16:37'
+}
 SoDeoptMetadata >> debugTermination [ 
 	| proc |
 	"StandardFileStream stdout 
@@ -93,7 +96,7 @@ SoDeoptMetadata >> debugTermination [
 	<<  (thisContext home sender at: 1) printString
 	<< ' terminating process.'."
 	FileStream stdout << 'HARD TERMINATION'.
-	'HARD TERMINATION' logCr.
+	Transcript showln: 'HARD TERMINATION'.
 	proc := Processor activeProcess.
 	[proc terminate] forkAt: proc priority + 1
 ]
