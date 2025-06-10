@@ -55,11 +55,14 @@ SoDeoptimizer >> deadOuterContextMarker [
 	^ #deadOuter
 ]
 
-{ #category : #'stack deoptimization' }
+{
+	#category : #'stack deoptimization',
+	#'squeak_changestamp' : 'ct 6/10/2025 16:38'
+}
 SoDeoptimizer >> debugLog: deoptPoint [
 	[ | debug |
 	debug := '(' , (deoptPoint first fixedFields at: 4) constant printString , ' ;' , (deoptPoint first fixedFields at: 2) constant printString , ')'.
-	debug logCr.
+	Transcript showln: debug.
 	FileStream stdout << debug; cr ] on: Error do: [ 'err' logCr. FileStream stdout << 'err'. ].
 ]
 
