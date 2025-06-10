@@ -114,15 +114,18 @@ SoBytecodeBuilder >> collectJumps [
 		acc ]
 ]
 
-{ #category : #results }
+{
+	#category : #results,
+	#'squeak_changestamp' : 'mad 6/10/2025 19:10'
+}
 SoBytecodeBuilder >> compiledCode: codeNode codeClass: codeClass [
 	| cm bytes |
-	self assert: codeClass == CompiledMethod. "Else installation not supported yet"
+	"self assert: codeClass == CompiledMethod." "Else installation not supported yet"
 	basicBlocks := codeNode basicBlocks.
 	bytes := self genBytecodes.
 	self newMetadata: codeNode compiledCode.
 	literals last debugInfo: codeNode debugInfo.
-	cm := self newCompiledMethodFor: codeNode bytesSize: bytes size.
+	cm := self newCompiledMethodFor: codeNode bytesSize: bytes size codeClass: codeClass.
 	self streamBytes: bytes toMethod: cm.
 	self writeLiteralsToMethod: cm originalMethod: codeNode compiledCode.
 	^ cm
@@ -536,11 +539,14 @@ SoBytecodeBuilder >> mapOuter: compiledBlock to: ctxtMarker [
 	blockOuterMapping at: compiledBlock put: ctxtMarker
 ]
 
-{ #category : #results }
-SoBytecodeBuilder >> newCompiledMethodFor: codeNode bytesSize:  size [
+{
+	#category : #results,
+	#'squeak_changestamp' : 'mad 6/10/2025 19:10'
+}
+SoBytecodeBuilder >> newCompiledMethodFor: codeNode bytesSize: size codeClass: codeClass [
 	^ codeNode compiledCode trailer 
 		createMethod: size 
-		class: CompiledMethod 
+		class: codeClass 
 		header: (self spurHeaderFor: codeNode bytesSize: size)
 ]
 

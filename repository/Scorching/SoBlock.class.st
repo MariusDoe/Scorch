@@ -13,12 +13,6 @@ Class {
 }
 
 { #category : #backend }
-SoBlock >> codeClass [
-	^ CompiledBlock
-	
-]
-
-{ #category : #backend }
 SoBlock >> install: code [
 	self error: 'unsupported'.
 ]

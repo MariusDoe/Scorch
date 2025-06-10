@@ -100,6 +100,14 @@ SoAbsCode >> bytecodeApproximateSize: aValue [
 	bytecodeApproximateSize := aValue
 ]
 
+{
+	#category : #backend,
+	#'squeak_changestamp' : 'mad 6/10/2025 19:07'
+}
+SoAbsCode >> codeClass [
+	^ self compiledCode perform: #class
+]
+
 { #category : #accessing }
 SoAbsCode >> codeNode [
 	^ self

@@ -25,11 +25,6 @@ SoMethod >> classToInstall: anObject [
 ]
 
 { #category : #backend }
-SoMethod >> codeClass [
-	^ CompiledMethod
-]
-
-{ #category : #backend }
 SoMethod >> install: code [
 	
 	code metadata isCustomized: (self classToInstall ~= code methodClass).

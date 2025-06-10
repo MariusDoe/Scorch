@@ -19,24 +19,13 @@ Class {
 	#category : #'Scorching-Pass-FrontEnd'
 }
 
-{ #category : #private }
+{
+	#category : #private,
+	#'squeak_changestamp' : 'mad 6/10/2025 19:00'
+}
 SoOptimizer >> basicOptimizedContext: context [
 	"('Attempt to optimize: ' , context method printString , ' with rcvrClass: ' , context receiver class name) logCr."
-	origin := DateAndTime now.
-	[ [ self uncheckedOptimize: context ]
-		valueWithin: TimeBeforePostponing
-		onTimeout: [ 
-				context method markOptimizedBit.
-				^ self postponeOptimization ] ]
-			on: Error, Warning 
-			do: [ :ex | 
-					ex class = MessageNotUnderstood ifTrue: [ ex pass ].
-					"ex class = SoStackSearchError ifTrue: [ (context stackOfSize: 15) logCr ]."
-					Transcript show: ('Failure for ' , context method printString , '. ' , ex class name , ': ' , ex messageText , ' | in ' , ex signalerContext method printString); cr.
-					FileStream stdout << ('Failure for ' , context method printString , '. ' , ex class name , ': ' , ex messageText , ' | in ' , ex signalerContext method printString).
-					FileStream stdout cr.
-					"Cant be optimized, usually SoStackSearchError"
-					^ context method markOptimizedBit. ].
+	^ self uncheckedOptimize: context
 ]
 
 { #category : #accessing }
@@ -51,11 +40,14 @@ SoOptimizer >> codeNode: aValue [
 	codeNode := aValue
 ]
 
-{ #category : #private }
+{
+	#category : #private,
+	#'squeak_changestamp' : 'mad 6/10/2025 19:03'
+}
 SoOptimizer >> getFirstCodeNode: ctxtTripping [
 	| ctxt |
 	ctxt := SoStackSearcher new searchCodeToOptimize: ctxtTripping.
-	self assert: ctxt method class == CompiledMethod. "We don't support block here right now"
+	self assert: ctxt method isCompiledMethod. "We don't support block here right now"
 	codeNode := SoMethodDecompiler decompile: ctxt method context: ctxt.
 	{SoReorderBasicBlocks . SoFindDominators . SoSimplifyPhis} do: [ :each |
 		each new runOn: codeNode ].

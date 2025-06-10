@@ -15,6 +15,14 @@ Class {
 	#category : #'Scorching-Deoptimization'
 }
 
+{
+	#category : #'instance creation',
+	#'squeak_changestamp' : 'mad 6/10/2025 19:23'
+}
+SoDependencyMap class >> cleanUp [
+	default := nil.
+]
+
 { #category : #'instance creation' }
 SoDependencyMap class >> default [
 	^ default ifNil: [ default := self new ]
