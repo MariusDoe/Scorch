@@ -32,17 +32,6 @@ Context >> callInlinedPrimitive: primNumber [
 	
 ]
 
-{ #category : #'*Scorching' }
-Context >> callPrimitive: primNumber [
-	| res |
-	primNumber >= (1 << 15) ifTrue: [ "inlined primitive, cannot fail" ^ self callInlinedPrimitive: primNumber ].  
-	res := self doPrimitive: primNumber method: self method receiver: receiver args: self arguments.
-	"regular primitive. Always at the beginning of methods."
-	res = PrimitiveFailToken ifTrue: [ "keeps interpreting the method" ^ self ].
-	self push: res.
-	self methodReturnTop.
-]
-
 {
 	#category : #'*Scorching',
 	#'squeak_changestamp' : 'ct 6/10/2025 16:35'
