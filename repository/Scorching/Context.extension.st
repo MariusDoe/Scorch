@@ -105,7 +105,10 @@ Context >> respondsToUnknownBytecode [
 
 ]
 
-{ #category : #'*Scorching' }
+{
+	#category : #'*Scorching',
+	#'squeak_changestamp' : 'ct 6/20/2025 23:04'
+}
 Context >> trapTripped [
 	"Triggered by the Sista JIT. Here you need to manage the dynamic deoptimization."
 	<noRuntimeOptimizations>
@@ -115,7 +118,7 @@ Context >> trapTripped [
 	[ currentProcess suspendedContext: deoptCtxt ] fork.
 	Processor yield.
 	"Should not reach here already..."
-	thisContext sender: deoptCtxt.
+	thisContext privSender: deoptCtxt.
 	thisContext jump.
 	self error: 'should not be reached'.
 ]
