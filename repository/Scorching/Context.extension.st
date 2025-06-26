@@ -32,17 +32,6 @@ Context >> callInlinedPrimitive: primNumber [
 	
 ]
 
-{ #category : #'*Scorching' }
-Context >> callPrimitive: primNumber [
-	| res |
-	primNumber >= (1 << 15) ifTrue: [ "inlined primitive, cannot fail" ^ self callInlinedPrimitive: primNumber ].  
-	res := self doPrimitive: primNumber method: self method receiver: receiver args: self arguments.
-	"regular primitive. Always at the beginning of methods."
-	res = PrimitiveFailToken ifTrue: [ "keeps interpreting the method" ^ self ].
-	self push: res.
-	self methodReturnTop.
-]
-
 {
 	#category : #'*Scorching',
 	#'squeak_changestamp' : 'ct 6/10/2025 16:35'
@@ -116,7 +105,10 @@ Context >> respondsToUnknownBytecode [
 
 ]
 
-{ #category : #'*Scorching' }
+{
+	#category : #'*Scorching',
+	#'squeak_changestamp' : 'ct 6/20/2025 23:04'
+}
 Context >> trapTripped [
 	"Triggered by the Sista JIT. Here you need to manage the dynamic deoptimization."
 	<noRuntimeOptimizations>
@@ -126,7 +118,7 @@ Context >> trapTripped [
 	[ currentProcess suspendedContext: deoptCtxt ] fork.
 	Processor yield.
 	"Should not reach here already..."
-	thisContext sender: deoptCtxt.
+	thisContext privSender: deoptCtxt.
 	thisContext jump.
 	self error: 'should not be reached'.
 ]
