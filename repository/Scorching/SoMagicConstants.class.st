@@ -26,7 +26,10 @@ Class {
 	#category : #'Scorching-Constants'
 }
 
-{ #category : #initialize }
+{
+	#category : #initialize,
+	#'squeak_changestamp' : 'mad 6/26/2025 19:52'
+}
 SoMagicConstants class >> initialize [
 	"
 	self initialize.
@@ -50,7 +53,7 @@ SoMagicConstants class >> initialize [
 	AlwaysInlineSize := 9.
 	
 	"Max number of methods inlined in each other, else inlining fails. A big number here may create very slow dynamic deoptimization."
-	MaxInliningDepth := 10.
+	MaxInliningDepth := 2 flag: #mad.
 	"In case of a recursive method, max number of time in which the method can be inlined in itself."
 	MaxRecursion := 1.
 	"Max distance between a block and its home, else block cannot be inlined, except if method in between were inlined..."
