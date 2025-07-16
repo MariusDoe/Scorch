@@ -17,6 +17,21 @@ Context >> aboutToReturn: result through: firstUnwindContext [
 	self methodReturnContext return: result through: firstUnwindContext
 ]
 
+{
+	#category : #'*Scorching',
+	#'squeak_changestamp' : 'ct 7/16/2025 21:37'
+}
+Context >> callInlinePrimitive: index [
+
+	| arg1 |
+	self push:
+		(index
+			caseOf:
+				{[2000] -> [arg1 := self pop. self pop + arg1].
+				[2033] -> [arg1 := self pop. self pop < arg1]}
+			otherwise: [self halt]).
+]
+
 { #category : #'*Scorching' }
 Context >> callInlinedPrimitive: primNumber [
 	"inlined primitive simulation.
@@ -59,7 +74,7 @@ Context >> closureOrNil [
 
 {
 	#category : #'*Scorching',
-	#'squeak_changestamp' : 'ct 6/10/2025 17:16'
+	#'squeak_changestamp' : 'ct 6/10/2025 23:05'
 }
 Context >> conditionalBranchCounterTrippedOn: boolean [
 	"Triggered by the Sista JIT. Here you need to manage the adaptive recompilation. When this method is triggered #conditionalBranchCounterTrippedOn: is removed from the specialObjectsArray"
@@ -121,6 +136,23 @@ Context >> trapTripped [
 	thisContext privSender: deoptCtxt.
 	thisContext jump.
 	self error: 'should not be reached'.
+]
+
+{
+	#category : #'*Scorching-system primitives(-pseudo)-override',
+	#'squeak_changestamp' : 'ct 6/23/2025 03:09'
+}
+Context >> unusedBytecode [
+	| result |
+	self error: 'unused bytecode encountered'.
+	
+	result := self step.
+	^ result == self
+		ifTrue:
+			[self stackPtr > 0 ifFalse: [self error: 'cannot represent this bytecode as a message send'].
+			self pop]
+		ifFalse:
+			[result jump]
 ]
 
 { #category : #'*Scorching' }
