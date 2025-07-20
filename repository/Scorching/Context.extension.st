@@ -139,18 +139,6 @@ Context >> trapTripped [
 ]
 
 {
-	#category : #'*Scorching',
-	#'squeak_changestamp' : 'ct 7/10/2025 20:26'
-}
-Context >> trapTrippedFromSimulation [
-	"Triggered by the Sista JIT. Here you need to manage the dynamic deoptimization."
-	<noRuntimeOptimizations>
-	| deoptCtxt |
-	deoptCtxt := self deoptimize.
-	^ deoptCtxt
-]
-
-{
 	#category : #'*Scorching-system primitives(-pseudo)-override',
 	#'squeak_changestamp' : 'ct 6/23/2025 03:09'
 }
