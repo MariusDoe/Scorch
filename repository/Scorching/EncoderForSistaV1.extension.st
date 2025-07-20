@@ -50,8 +50,8 @@ EncoderForSistaV1 >> genTrap [
 
 {
 	#category : #'*Scorching-Pharo-Compatibility',
-	#'squeak_changestamp' : 'mad 6/5/2025 15:37'
+	#'squeak_changestamp' : 'mad 7/20/2025 14:49'
 }
 EncoderForSistaV1 class >> specialLiterals [
-	^ #(true false nil 0 1)
+	^ #(true false nil), (-32768 to: 32767), ((0 to: 65535) collect: [:each | Character value: each])
 ]
