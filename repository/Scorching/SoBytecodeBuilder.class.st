@@ -274,9 +274,13 @@ SoBytecodeBuilder >> genDeoptInfo: node [
 	^ self recordDeoptPoint: (node deoptInfo asDeoptFor: node) basicBlock: node basicBlock
 ]
 
-{ #category : #'bytecode generation' }
+{
+	#category : #'bytecode generation',
+	#'squeak_changestamp' : 'mad 7/20/2025 14:42'
+}
 SoBytecodeBuilder >> genEnsureEnoughSpace: instr [
-	encoder genEnsureAllocatableSlots: instr numWords
+	self genPushConstant: instr numWords.
+	encoder genEnsureAllocatableSlots.
 ]
 
 { #category : #'bytecode generation' }

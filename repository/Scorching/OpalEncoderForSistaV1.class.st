@@ -48,6 +48,18 @@ OpalEncoderForSistaV1 >> genBranchIfNotInstanceOf: literalIndex distance: distan
 
 {
 	#category : #'*Scorching',
+	#'squeak_changestamp' : 'mad 7/20/2025 15:37'
+}
+OpalEncoderForSistaV1 >> genCallMappedInlinePrimitive: primitiveIndex [
+	(primitiveIndex < 1 or: [primitiveIndex > 255]) ifTrue:
+		[self outOfRangeError: 'primitive index' index: primitiveIndex range: 1 to: 255].
+	stream
+		nextPut: 236;
+		nextPut: primitiveIndex.
+]
+
+{
+	#category : #'*Scorching',
 	#'squeak_changestamp' : 'mad 6/5/2025 17:04'
 }
 OpalEncoderForSistaV1 >> genCallPrimitive: primitiveIndex [
@@ -66,11 +78,12 @@ OpalEncoderForSistaV1 >> genCallPrimitive: primitiveIndex [
 		nextPut: (primitiveIndex bitShift: -8)
 ]
 
-{ #category : #'*Scorching' }
-OpalEncoderForSistaV1 >> genEnsureAllocatableSlots: int [
-	stream
-		nextPut: 236;
-		nextPut: int
+{
+	#category : #'*Scorching',
+	#'squeak_changestamp' : 'mad 7/20/2025 15:37'
+}
+OpalEncoderForSistaV1 >> genEnsureAllocatableSlots [
+	self genCallMappedInlinePrimitive: 50.
 ]
 
 { #category : #'*Scorching' }
