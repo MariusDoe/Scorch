@@ -21,11 +21,14 @@ SoOuterContextMap class >> from: deoptObjects [
 	
 ]
 
-{ #category : #initialization }
+{
+	#category : #initialization,
+	#'squeak_changestamp' : 'ct 7/19/2025 04:07'
+}
 SoOuterContextMap >> fromDeoptObjects: deoptObjects [
 	map := SoDeoptDictionary new.
 	deoptObjects keysAndValuesDo: [ :key :value | 
-		value class == ContextClass ifTrue: [ 
+		value class isContextClass ifTrue: [ 
 			map at: key put: value ] ]
 ]
 

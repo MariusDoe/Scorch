@@ -23,10 +23,13 @@ SoMethodInliner >> canInline [
 	
 ]
 
-{ #category : #heuristic }
+{
+	#category : #heuristic,
+	#'squeak_changestamp' : 'ct 7/19/2025 03:58'
+}
 SoMethodInliner >> checkForRecursion: method [
 	^ (send deoptInfo sunkObjects count: [ :each |
-		(each theClass == ContextClass) and: [ (each fixedFields at: 4) constant == method] ]) <= MaxRecursion
+		each theClass isContextClass and: [ (each fixedFields at: 4) constant == method] ]) <= MaxRecursion
 ]
 
 { #category : #accessing }
