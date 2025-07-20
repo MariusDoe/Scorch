@@ -7,3 +7,12 @@ Extension { #name : #Behavior }
 Behavior >> allowRuntimeOptimization [
 	^ true
 ]
+
+{
+	#category : #'*Scorching-testing',
+	#'squeak_changestamp' : 'ct 7/19/2025 04:00'
+}
+Behavior >> isContextClass [
+
+	^ false
+]

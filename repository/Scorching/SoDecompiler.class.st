@@ -639,12 +639,16 @@ SoDecompiler >> receiver: aValue [
 	receiver := aValue
 ]
 
-{ #category : #'sunk objects' }
+{
+	#category : #'sunk objects',
+	#'squeak_changestamp' : 'ct 7/20/2025 03:45'
+}
 SoDecompiler >> recordSunkContext: node [
 	
 	| ctxt |
 	ctxt := SoPointerSunkObjectState new
-		theClass: ContextClass;
+		theClass: ContextClass"(context perform: #class)";
+		flag: #todo; "should use perform: #class here for oopsie support, but this magically breaks things (emits invalid bytecode)"
 		marker: self scopeMarker;
 		fixedFields: { 
 			callerDeoptInfo ifNil: [ SoConstant new ] ifNotNil: [ :deopt | deopt sunkObjects first marker ].
@@ -659,7 +663,6 @@ SoDecompiler >> recordSunkContext: node [
 		[ :deopt | 
 		 	deopt sunkObjects do: [ :sunk |
 				node deoptInfo addSunkObject: sunk copy ] ].
-	
 ]
 
 { #category : #fixups }

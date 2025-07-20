@@ -51,9 +51,12 @@ SoDeoptimizationInformation >> convertToTrapWith: node [
 		yourself
 ]
 
-{ #category : #accessing }
+{
+	#category : #accessing,
+	#'squeak_changestamp' : 'ct 7/19/2025 03:58'
+}
 SoDeoptimizationInformation >> depth [
-	^ sunkObjects count: [ :each | each theClass == ContextClass ]
+	^ sunkObjects count: [ :each | each theClass isContextClass ]
 ]
 
 { #category : #initialization }
