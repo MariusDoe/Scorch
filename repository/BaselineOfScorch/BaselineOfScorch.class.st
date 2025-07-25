@@ -4,15 +4,17 @@ Class {
 	#category : #BaselineOfScorch
 }
 
-{ #category : #baselines }
+{
+	#category : #baselines,
+	#'squeak_changestamp' : 'mad 7/25/2025 21:38'
+}
 BaselineOfScorch >> baseline: spec [ 
 	<baseline>
 	spec for: #common do: [
 		
 	spec  
 		description: 'Baseline for Scorch, a library for runtime optimizations';
-		author: 'ClementBera';
-		postLoadDoIt: #postload:package:.
+		author: 'ClementBera'.
 	
 	spec	
 			package: 'Scorching';
@@ -23,11 +25,6 @@ BaselineOfScorch >> baseline: spec [
 			package: 'ScorchingVMTests' with: [ 
 				spec requires: #('Scorching' 'ScorchingDev') ].
 	].
-]
-
-{ #category : #actions }
-BaselineOfScorch >> postload: loader package: packageSpec [
-	(Smalltalk at: #SoScripts) openWorkspaces
 ]
 
 { #category : #baselines }
