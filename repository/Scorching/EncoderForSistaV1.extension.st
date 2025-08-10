@@ -57,18 +57,34 @@ outerContextNeeded: outerContextNeeded [
 
 {
 	#category : #'*Scorching-Pharo-Compatibility',
-	#'squeak_changestamp' : 'mad 6/5/2025 17:19'
+	#'squeak_changestamp' : 'mad 8/10/2025 00:30'
 }
 EncoderForSistaV1 >> genPushRemoteInstanceVariable: instVarIndex inObjectAt: objectIndex [
-	^ self genPushRemoteTemp: instVarIndex + (1 << 7) inVectorAt: objectIndex
+	"251		11111011 	kkkkkkkk	sjjjjjjj		Push Temp At kkkkkkkk In Temp Vector At: jjjjjjj, s = 1 implies remote inst var access instead of remote temp vector access"
+	(instVarIndex < 0 or: [instVarIndex >= 256]) ifTrue:
+		[^self outOfRangeError: 'instVarIndex' index: instVarIndex range: 0 to: 255].
+	(objectIndex < 0 or: [objectIndex >= 128]) ifTrue:
+		[^self outOfRangeError: 'objectIndex' index: objectIndex range: 0 to: 127].
+	stream
+		nextPut: 251;
+		nextPut: instVarIndex;
+		nextPut: objectIndex + (1 << 7)
 ]
 
 {
 	#category : #'*Scorching-Pharo-Compatibility',
-	#'squeak_changestamp' : 'mad 6/5/2025 17:25'
+	#'squeak_changestamp' : 'mad 8/10/2025 00:30'
 }
 EncoderForSistaV1 >> genStorePopRemoteInstanceVariable: instVarIndex inObjectAt: objectIndex [
-	^ self genStorePopRemoteTemp: instVarIndex + (1 << 7) inVectorAt: objectIndex
+	"*	253	(3)	11111101 	kkkkkkkk	sjjjjjjj		Pop and Store Temp At kkkkkkkk In Temp Vector At: jjjjjjj s = 1 implies remote inst var access instead of remote temp vector access"
+	(instVarIndex < 0 or: [instVarIndex >= 256]) ifTrue:
+		[^self outOfRangeError: 'instVarIndex' index: instVarIndex range: 0 to: 255].
+	(objectIndex < 0 or: [objectIndex >= 128]) ifTrue:
+		[^self outOfRangeError: 'objectIndex' index: objectIndex range: 0 to: 127].
+	stream
+		nextPut: 253;
+		nextPut: instVarIndex;
+		nextPut: objectIndex + (1 << 7)
 ]
 
 {
