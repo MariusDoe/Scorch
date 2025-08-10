@@ -276,10 +276,10 @@ SoBytecodeBuilder >> genDeoptInfo: node [
 
 {
 	#category : #'bytecode generation',
-	#'squeak_changestamp' : 'mad 7/20/2025 14:42'
+	#'squeak_changestamp' : 'mad 8/9/2025 17:45'
 }
 SoBytecodeBuilder >> genEnsureEnoughSpace: instr [
-	self genPushConstant: instr numWords.
+	self genPushConstant: (SoConstant constant: instr numWords).
 	encoder genEnsureAllocatableSlots.
 ]
 
