@@ -9,7 +9,7 @@ Behavior >> allowRuntimeOptimization [
 ]
 
 {
-	#category : #'*Scorching-testing',
+	#category : #'*Scorching-testing-pseudo-override',
 	#'squeak_changestamp' : 'ct 7/19/2025 04:00'
 }
 Behavior >> isContextClass [

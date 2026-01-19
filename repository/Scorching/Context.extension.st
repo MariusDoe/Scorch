@@ -1,6 +1,9 @@
 Extension { #name : #Context }
 
-{ #category : #'*Scorching' }
+{
+	#category : #'*Scorching-private-override',
+	#'squeak_changestamp' : 'ct 1/13/2026 00:35'
+}
 Context >> aboutToReturn: result through: firstUnwindContext [ 
 	"Called from VM when an unwindBlock is found between self and its home.
 	 Return to home's sender, executing unwind blocks on the way."
@@ -14,7 +17,7 @@ Context >> aboutToReturn: result through: firstUnwindContext [
 				[ ctxt outerContext == self home ] whileFalse: [ ctxt := ctxt outerContext ].
 				Scorch actualOuterContext: ctxt closureOrNil.
 				^ self return: result from: self methodReturnContext ] ].
-	self methodReturnContext return: result through: firstUnwindContext
+	^firstUnwindContext unwindAndResume: self home sender evaluating: [result]
 ]
 
 {
@@ -48,7 +51,7 @@ Context >> callInlinedPrimitive: primNumber [
 ]
 
 {
-	#category : #'*Scorching',
+	#category : #'*Scorching-private-exceptions-override',
 	#'squeak_changestamp' : 'ct 6/10/2025 16:35'
 }
 Context >> cannotReturn: result [
@@ -73,7 +76,7 @@ Context >> closureOrNil [
 ]
 
 {
-	#category : #'*Scorching',
+	#category : #'*Scorching-pseudo-override',
 	#'squeak_changestamp' : 'ct 6/10/2025 23:05'
 }
 Context >> conditionalBranchCounterTrippedOn: boolean [
